@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    "use strict";
+    //对象object
+    var obj={
+        name:"Cat",
+        "for":"Max",
+        details:{
+            color:"white",
+            wight:"2.5KG"
+        }
+    }
+//    对象的属性可以通过链式（chain）表示方法进行访问：
+    console.log(obj.name);//Cat
+    console.log(obj.for);//Max
+    console.log(obj["for"]);//Max
+
+    console.log(obj.details.color)//white
+    console.log(obj["details"]["color"])//white
+
+    console.log(obj.details.wight)//2.5KG
+
+    //function对象
+    function Person(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    var You=new Person("You",22);//实例化对象
+    console.log(You.name);//You
+    console.log(You["name"]);//You
+    console.log(You.age);//22
+    console.log(You["age"]);//22
+
+//    数组
+    var arr=new Array(1,2,3,4,56,7,8,9,10);
+    arr.forEach(function (item,index,array) {
+        console.log(item+" "+index+",");//1 0,2 1,3 2,…… 每个元素个他们对应的index
+    })
+//    闭包
+    function makeAdder(a) {
+        return function(b) {
+            return a + b;
+        }
+    }
+    var x = makeAdder(5);
+    var y = makeAdder(20);
+    console.log(x(6));
+    console.log(y(7));
+//  使用闭包的一个坏处是，在 IE 浏览器中它会很容易导致内存泄露
+    function leakMemory() {
+        var el = document.getElementById('el');
+        var o = { 'el': el };
+        el.o = o;
+    }
+
+    var num =0;
+    var obj=new String("0");
+    var str="0";
+    var b=false;
+    console.log(num===num);//true
+    console.log(obj===obj);//true
+    console.log(str===str);//true
+
+    console.log(num===obj);//false
+    console.log(str===obj);//false
+    console.log(null === undefined); // false
+    console.log(obj === null); // false
+    console.log(obj === undefined); // false
+
+    // 向 Nmuber 构造函数添加一个不可变的属性 NEGATIVE_ZERO
+    Object.defineProperty(Number,"NEGATIVE_ZERO",{
+        value:-0,writable:false,configurable:false,enumerable:false
+    })
+    function attempMutation(v){
+        Object.defineProperty(Number,"NEGATIVE_ZERO",{value:v});
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+

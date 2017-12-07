@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    "use strict";
+//缓冲和视图：类型数组架构
+    var buffer=new ArrayBuffer(16);
+    if (buffer.byteLength === 16) {
+        console.log("Yes, it's 16 bytes.");
+    } else {
+        console.log("Oh no, it's the wrong size!");
+    }
+
+    //转换为普通数组
+    var typedArray = new Uint8Array([1, 2, 3, 4]),
+        normalArray = Array.prototype.slice.call(typedArray);
+    normalArray.length === 4;
+    normalArray.constructor === Array;
+
+    console.log(normalArray);//[1, 2, 3, 4]
+
+    //并行条件分支
+    var a = [1, 2, 3, 4];
+    var b = [5, 6, 7, 8];
+    var c = [];
+    for (var i = 0; i < 4; i++) {
+        if (a[i] < 3) {
+            c[i] = a[i] * b[i];
+        } else {
+            c[i] = b[i] + a[i];
+        }
+    }
+    console.log(c); // [5, 12, 10, 12]
+
+//    var a = SIMD.Float32x4(1, 2, 3, 4);
+//    var b = SIMD.Float32x4(5, 6, 7, 8);
+//
+//    var mask = SIMD.Float32x4.lessThan(a, SIMD.Float32x4.splat(3));
+//    // Int32x4[-1, -1, 0, 0]
+//
+//    var result = SIMD.Float32x4.select(mask,
+//            SIMD.Float32x4.mul(a, b),
+//            SIMD.Float32x4.add(a, b));
+//
+//    console.log(result); // Float32x4[5, 12, 10, 12]
+
+    var n=123;
+    var s="azerty";
+    var o={
+        a:1,
+        b:null
+    };
+    var a=[1,null,"abra"];
+    function f(a){
+        return a+2;
+    }
+//    someElement.addEventListener("click", function () {
+//        someElement.style.backgroundColor="blue";
+//    },false);
+
+    //栈
+    function foo(b) {
+        var a = 10;
+        return a + b + 11;
+    }
+    function bar(x) {
+        var y = 3;
+        return foo(x * y);
+    }
+    console.log(bar(7));
+
+    //把函数调用链起来
+    const double = (n) => n * 2;
+    const increment = (n) => n + 1;
+    // 没有用管道操作符
+    double(increment(double(10))); // 42
+    // 用上管道操作符之后
+//    10 |> double |> increment |> double; // 42
+
+
+//Promise 被传递给一个 await 操作符
+    function resolveAfter2Seconds(x) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(x);
+            }, 2000);
+        });
+    }
+
+    async function f1() {
+        var x = await resolveAfter2Seconds(10);
+        console.log(x); // 10
+    }
+    f1();
+
+</script>
+
+</body>
+</html>

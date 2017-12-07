@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<img srcset="images/firefox-icon.png,
+             images/firefox-icon.png 1.5x,
+             images/firefox-icon.png 2x"
+     src="images/firefox-icon.png" alt="Elva dressed as a fairy">
+<img srcset="images/firefox-icon.png 320w,
+             images/firefox-icon.png 480w,
+             images/firefox-icon.png 800w"
+     sizes="(max-width: 320px) 280px,
+            (max-width: 480px) 440px,
+            800px"
+     src="images/firefox-icon.png" alt="Elva dressed as a fairy">
+</body>
+<script type="text/javascript">
+    var str;
+    str=0.1+0.2;//0.30000000000000004
+    var r=Math.sin(3.5);
+    var d=Math.PI*(r+r);//-2.2040360222244506
+    var Int1=parseInt("123",10)//123
+    var Int2=parseInt("010",10)//10
+    var Int3=parseInt("11",2)//将二进制转化为整数 1*2^0+1*2^1=3
+    console.log(isNaN(32));//false  isNaN用于判断一个数是否为NaN（Not a Number）
+    console.log(1/0);//Infinity（正无穷）
+    console.log(-1/0);//-Infinity（负无穷）
+//    用内置函数isFinity()来判断一个数是否为穷数， 如果类型为Infinity, -Infinity 或 NaN则返回false
+    console.log(isFinite(1/0));//false 不是有限数
+    console.log(isFinite("wewew"));//false
+    console.log(isFinite("1212"));//true
+    console.log(isFinite(1212));//true
+    console.log("hello".length);//5
+    console.log("hello world".charAt(6));//w 从0开始
+
+    var str="hello world";
+    var num=5;
+    str=str.replace("hello","googbye");//replace(被替换掉的原字符串，用于替换的新字符串)
+    console.log(str);//googbye world
+    console.log(str.toUpperCase());//GOOGBYE WORLD 将字符串全部转为大写；toLowerCase()反之
+    console.log(Boolean(""));//false
+    console.log(Boolean(234));//true
+    //console.log(num+=5);//10
+    //console.log(num++);//5  先执行后++
+    //console.log(num--);//5 同理
+    //console.log(++num);//6 先++后执行
+    console.log(--num);//4 同理
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

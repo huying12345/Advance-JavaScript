@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<style>
+    /**{padding: 0;margin: 0}*/
+    #content{font-size:12px;}
+    li{list-style: none;}
+    span{cursor: pointer;font-size: 12px;}
+    span:active{color: red;}
+</style>
+<body>
+<div>
+    <div>
+        <ol id="content">
+            <li>离离原上草</li>
+            <li>一岁一枯荣</li>
+            <li>野火烧不尽</li>
+            <li>春风吹又生</li>
+        </ol>
+    </div>
+    <span id="size-14">14px</span>
+    <span id="size-16">16px</span>
+    <span id="size-18">18px</span>
+</div>
+
+<script type="text/javascript">
+    //写一个字体变化的闭包函数
+    function makeSize(size){
+        return function () {
+            document.getElementById("content").style.fontSize=size+"px";
+        }
+    }
+    var size14=makeSize(14);
+    var size16=makeSize(16);
+    var size18=makeSize(18);
+
+    document.getElementById("size-14").onclick=size14;
+    document.getElementById("size-16").onclick=size16;
+    document.getElementById("size-18").onclick=size18;
+
+//用闭包模拟私有方法
+//诸如 Java 在内的一些语言支持将方法声明为私有的，即它们只能被同一个类中的其它方法所调用。
+
+    var Counter = (function() {
+        var privateCounter = 0;
+        function changeBy(val) {
+            privateCounter += val;
+        }
+        return {
+            increment: function() {
+                changeBy(1);
+            },
+            decrement: function() {
+                changeBy(-1);
+            },
+            value: function() {
+                return privateCounter;
+            }
+        }
+    })();
+
+    console.log(Counter.value()); /* 0 */
+    Counter.increment();
+    Counter.increment();
+    console.log(Counter.value()); /* 2 */
+    Counter.decrement();
+    console.log(Counter.value()); /* 1 */
+
+    //1）
+    function MyObject1(name,message){
+        this.name=name.toString();
+        this.message=message.toString();
+        this.getName= function () {
+            return this.name;
+        };
+        this.getMessage= function () {
+            return this.message;
+        }
+    }
+
+    //2）闭包 同上比较
+    function MyObject2(name, message) {
+        this.name = name.toString();
+        this.message = message.toString();
+    }
+    MyObject2.prototype = {
+        getName: function() {
+            return this.name;
+        },
+        getMessage: function() {
+            return this.message;
+        }
+    };
+    //注意实例化对象new关键字，否则报错
+    var myObj=new MyObject2("Amy","hello，world！");
+
+    console.log(myObj.getName());//Amy
+    console.log(myObj.getMessage());//hello，world！
+
+    //3）同上比较 此方法更简洁
+    function MyObject3(name, message) {
+        this.name = name.toString();
+        this.message = message.toString();
+    }
+    (function () {
+        this.getName= function () {
+            return this.name;
+        };
+        this.getMessage=function () {
+            return this.message;
+        };
+    }).call(MyObject3.prototype);
+
+    var myObj=new MyObject3("Amy","hello，world！");
+
+    console.log(myObj.getName());//Amy
+    console.log(myObj.getMessage());//hello，world！
+
+//    继承的原型可以为所有对象共享，且不必在每一次创建对象时定义方法
+</script>
+</body>
+</html>
